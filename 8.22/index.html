@@ -4,30 +4,23 @@
 <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>H5调用手机摄像头</title>
-    <style>  
+    <style> 
+      *{margin: 0;padding: 0;} 
+      html,body{width:100%;height:100%;}
+      .main{width: 100%;height: 100%;background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+      .btn_ty{position: absolute;top:68%;left:23%;width: 53%;height: 8%;opacity: 0;}
     </style>  
 </head>  
 <body>  
-<h3>HTML5调用手机摄像头，进行拍照，实时上传</h3>
-<div>  
-    <h3>image图片</h3>
-    <input type="file" accept="image/*" capture="camera">  
-    <h3>image图片 – 多选</h3>
-    <input type="file" accept="image/*"  multiple> 
-    <hr />
-    <h3>image图片 - 前置摄像头调用</h3>
-    <p>重点来了，iOS 10.3以后可以通过给 input[type='file'] 的标签里指定 capture="user" 来调用手机前置摄像头了。</p>
-    <p><b>注意：</b>如果手机不支持这个特性还是使用的是后置摄像头。</p>
-    <input type="file" accept="image/*"  capture="user"> 
-    <p>经过实际测试，Android和IOS两种系统的手机调用的还是后置摄像头！！</p>
-    <hr />
+ 
+   <div class="main">
+   	  <input class="btn_ty" type="file" accept="image/*"  capture="user"> 
+   </div> 
+  
+  
+    
+    
 
-    <h3>video视频</h3>
-    <input type="file" accept="video/*" capture="camcorder"> 
-    <hr />
-
-    <h3>audio音频</h3>
-    <input type="file" accept="audio/*" capture="microphone">  
-</div>  
+ 
 </body>  
 </html> 
