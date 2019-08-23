@@ -16,6 +16,7 @@
       .image_container{width: 69%;height: 38%;position: absolute;left: 15%;top: 13%;}
       .image_container img{width:100%;height:100%;display: block}
       .leave{width:20%;height: 10%;position: absolute;left:66% ;top:51%;font-weight: bold;color: red;font-size:20px }
+      .no_p{width: 69%;height: 38;position: absolute;left: 15%;top: 13%;text-align: center;}
     </style>  
 </head>  
 <body>  
@@ -27,6 +28,7 @@
     <div class="two">
     	<div class="image_container">
     		<img id="preview"/>
+    		<p class="no_p">未检测到照片请刷新重试</p>
 		</div>
 		<div class="leave">0</div>
     </div>
@@ -46,7 +48,7 @@
  	btn_ty.onclick=function(){
  		one.style.display="none";
  		
- 		leave.innerHTML=Math.ceil(Math.random()*10)+"0%";
+ 		
  		
  	}
  	
@@ -60,7 +62,10 @@
         if (fileObj && fileObj.files && fileObj.files[0]) {
             dataURL = windowURL.createObjectURL(fileObj.files[0]);
             $img.attr('src', dataURL);
+            leave.innerHTML=Math.ceil(Math.random()*10)+"0%";
+            $(".no_p").hide(0)
         } else {
+      
             dataURL = $file.val();
             var imgObj = document.getElementById("preview");
             // 两个坑:
