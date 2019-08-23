@@ -13,18 +13,22 @@
       .one{background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
       .two{background: url("img/BG1.png") no-repeat center center;background-size: 100% 100%;position: relative;}
       .one,.two{width: 100%;height: 100%;}
+      .image_container{width: 69%;height: 38%;position: absolute;left: 15%;top: 13%;}
+      .image_container img{width:100%;height:100%;display: block}
+      .leave{width:20%;height: 10%;position: absolute;left:66% ;top:51%;font-weight: bold;color: red;font-size:20px }
     </style>  
 </head>  
 <body>  
  
    <div class="main">
    	<div class="one">
-   	  <input id="file_upload" class="btn_ty" type="file" accept="image/*"  capture="user"> 
+   	  <input id="file_upload" class="btn_ty" type="file" accept="image/*"  capture="camera"> 
    	 </div> 
     <div class="two">
     	<div class="image_container">
-    		<img id="preview" style="height:130px;width:117px;border-width:0px;"/>
+    		<img id="preview"/>
 		</div>
+		<div class="leave">0</div>
     </div>
    </div> 
   
@@ -38,10 +42,11 @@
  	
  	var btn_ty=document.getElementsByClassName("btn_ty")[0];
  	var one=document.getElementsByClassName("one")[0];
+ 	var leave=document.getElementsByClassName("leave")[0];
  	btn_ty.onclick=function(){
  		one.style.display="none";
  		
- 
+ 		leave.innerHTML=Math.ceil(Math.random()*10)+"0%";
  		
  	}
  	
