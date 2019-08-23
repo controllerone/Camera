@@ -4,23 +4,69 @@
 <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>H5调用手机摄像头</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <style> 
       *{margin: 0;padding: 0;} 
       html,body{width:100%;height:100%;}
-      .main{width: 100%;height: 100%;background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+      .main{width: 100%;height: 100%;}
       .btn_ty{position: absolute;top:68%;left:23%;width: 53%;height: 8%;opacity: 0;}
+      .one{background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+      .two{background: url("img/BG1.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+      .one,.two{width: 100%;height: 100%;}
     </style>  
 </head>  
 <body>  
  
    <div class="main">
-   	  <input class="btn_ty" type="file" accept="image/*"  capture="user"> 
+   	<div class="one">
+   	  <input id="file_upload" class="btn_ty" type="file" accept="image/*"  capture="user"> 
+   	 </div> 
+    <div class="two">
+    	<div class="image_container">
+    		<img id="preview" style="height:130px;width:117px;border-width:0px;"/>
+		</div>
+    </div>
    </div> 
   
   
     
-    
 
  
+ 
+ 
+ <script>
+ 	
+ 	var btn_ty=document.getElementsByClassName("btn_ty")[0];
+ 	var one=document.getElementsByClassName("one")[0];
+ 	btn_ty.onclick=function(){
+ 		one.style.display="none";
+ 		
+ 
+ 		
+ 	}
+ 	
+    $("#file_upload").change(function () {
+        var $file = $(this);
+        var fileObj = $file[0];
+        var windowURL = window.URL || window.webkitURL;
+        var dataURL;
+        var $img = $("#preview");
+
+        if (fileObj && fileObj.files && fileObj.files[0]) {
+            dataURL = windowURL.createObjectURL(fileObj.files[0]);
+            $img.attr('src', dataURL);
+        } else {
+            dataURL = $file.val();
+            var imgObj = document.getElementById("preview");
+            // 两个坑:
+            // 1、在设置filter属性时，元素必须已经存在在DOM树中，动态创建的Node，也需要在设置属性前加入到DOM中，先设置属性在加入，无效；
+            // 2、src属性需要像下面的方式添加，上面的两种方式添加，无效；
+            imgObj.style.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(sizingMethod=scale)";
+            imgObj.filters.item("DXImageTransform.Microsoft.AlphaImageLoader").src = dataURL;
+
+        }
+    });
+
+ </script>
 </body>  
 </html> 
