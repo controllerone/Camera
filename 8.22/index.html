@@ -61,6 +61,7 @@
  	
  	var btn_ty=document.getElementsByClassName("btn_ty")[0];
  	var one=document.getElementsByClassName("one")[0];
+ 	var view=document.getElementById("view");
  	var save=document.getElementsByClassName("save")[0];
  	var leave=document.getElementsByClassName("leave")[0];
  	var bg=Math.ceil(Math.random()*3);
@@ -71,6 +72,7 @@
  	console.log(bg)
  	btn_ty.onclick=function(){
  		one.style.display="none";
+ 		view.style.display="block";
  		
  		
  		
@@ -126,10 +128,10 @@
                             newImg.src =  dataUrl;
                             document.getElementById("san").appendChild(newImg);
 //                          console.log(dataUrl)
-          
-canvas.toBlob(function(blob) {
+                         
+/*canvas.toBlob(function(blob) {
              saveAs(blob, "hangge.png");
-          });
+          });*/
                                                   
                         });   
                         
