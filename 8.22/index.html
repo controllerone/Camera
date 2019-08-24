@@ -6,13 +6,16 @@
     <title>H5调用手机摄像头</title>
     <script type="text/javascript" src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>  
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="js/new_file.js">
+    	
+    </script>
     <style> 
       *{margin: 0;padding: 0;} 
       html,body{width:100%;height:100%;}
-      .main{width: 100%;height: 100%;}
+      .main{width: 100%;height: 100%;position: relative;}
       .btn_ty{position: absolute;top:68%;left:23%;width: 53%;height: 8%;opacity: 0;}
-      .one{background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
-      .two{position: relative;}
+      .one{z-index: 3;position: absolute;top: 0;left: 0;background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
+      .two{z-index: 1;position: absolute;left: 0;top:0;}
       .san{position: absolute;left: 0;top: 0;}
       .one,.two,.san{width: 100%;height: 100%;}
       .image_container{width: 69%;height: 38%;position: absolute;left: 15%;top: 13%;}
@@ -71,6 +74,7 @@
  		
  		
  		
+ 		
  	}
  	
     $("#file_upload").change(function () {
@@ -85,6 +89,7 @@
             $img.attr('src', dataURL);
             leave.innerHTML=Math.ceil(Math.random()*10)+"0%";
             $(".no_p").hide(0);
+            
             
        
            
@@ -116,28 +121,15 @@
                         	x:0,
                         	y:window.pageYOffset
                         }).then(function(canvas) {
-                            var dataUrl = canvas.toDataURL();
+                            var dataUrl = canvas.toDataURL("image/png", 1);//截图质量0-1
                             var newImg = document.createElement("img");
                             newImg.src =  dataUrl;
                             document.getElementById("san").appendChild(newImg);
 //                          console.log(dataUrl)
           
-//        $("#san img").attr("crossOrigin","anonymous")
-                                     downloadIamge()
-                            
-                            function downloadIamge(name) {
-    // 通过选择器获取img元素，
-    var img = document.getElementsByTagName("img")[0];
-    // 将图片的src属性作为URL地址
-    var url = img.src
-    var a = document.createElement('a')
-    var event = new MouseEvent('click')
-    
-    a.download = name || '下载图片名称'
-    a.href = url
-    
-    a.dispatchEvent(event)
-}
+canvas.toBlob(function(blob) {
+             saveAs(blob, "hangge.png");
+          });
                                                   
                         });   
                         
