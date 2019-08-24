@@ -4,6 +4,7 @@
 <meta charset="UTF-8">  
     <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
     <title>H5调用手机摄像头</title>
+    <script type="text/javascript" src="http://html2canvas.hertzen.com/dist/html2canvas.js"></script>  
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
     <style> 
       *{margin: 0;padding: 0;} 
@@ -11,12 +12,17 @@
       .main{width: 100%;height: 100%;}
       .btn_ty{position: absolute;top:68%;left:23%;width: 53%;height: 8%;opacity: 0;}
       .one{background: url("img/main.png") no-repeat center center;background-size: 100% 100%;position: relative;}
-      .two{background-image: url("img/BG1.png") ;background-size: 100% 100%;position: relative;background-repeat:no-repeat;background-position:center center;}
-      .one,.two{width: 100%;height: 100%;}
+      .two{position: relative;}
+      .san{position: absolute;left: 0;top: 0;}
+      .one,.two,.san{width: 100%;height: 100%;}
       .image_container{width: 69%;height: 38%;position: absolute;left: 15%;top: 13%;}
       .image_container img{width:100%;height:100%;display: block}
       .leave{width:20%;height: 10%;position: absolute;left:66% ;top:51%;font-weight: bold;color: red;font-size:20px }
       .no_p{width: 69%;height: 38;position: absolute;left: 15%;top: 13%;text-align: center;}
+      canvas{width:100%;height: 100%;}
+      .save{position: absolute;top:80%;left:50%;width: 20%;height: 6%;background-color:#FF0000 ;text-align: center;}
+      .two_bg{width:100%;height: 100%;}
+      .two_bg img{width: 100%;height: 100%;}
     </style>  
 </head>  
 <body>  
@@ -25,13 +31,21 @@
    	<div class="one">
    	  <input id="file_upload" class="btn_ty" type="file" accept="image/*"  capture="camera"> 
    	 </div> 
-    <div class="two">
+    <div id="view" class="two">
+    	<div class="two_bg">
+    		<img src="img/BG1.png" alt="" />
+    	</div>
+    	
+   	<div id="san" class="san">
+    	<input class="save"  type="button" value="button">
+    </div>
     	<div class="image_container">
     		<img id="preview"/>
     		<p class="no_p">未检测到照片请刷新重试</p>
 		</div>
 		<div class="leave">0</div>
     </div>
+    
    </div> 
   
   
@@ -44,10 +58,13 @@
  	
  	var btn_ty=document.getElementsByClassName("btn_ty")[0];
  	var one=document.getElementsByClassName("one")[0];
+ 	var save=document.getElementsByClassName("save")[0];
  	var leave=document.getElementsByClassName("leave")[0];
  	var bg=Math.ceil(Math.random()*3);
+ 	var san=document.getElementById("san");
  	
- 	$(".two").css({backgroundImage: 'url(img/BG'+bg+'.png)'})
+ 	
+ 	$(".two_bg img").attr("src", 'img/BG'+bg+'.png')
  	console.log(bg)
  	btn_ty.onclick=function(){
  		one.style.display="none";
@@ -68,7 +85,8 @@
             $img.attr('src', dataURL);
             leave.innerHTML=Math.ceil(Math.random()*10)+"0%";
             $(".no_p").hide(0);
-          
+            
+       
            
         } else {
       
@@ -82,6 +100,53 @@
 
         }
     });
+
+
+
+    var save=document.getElementsByClassName("save")[0]
+
+     save.onclick=function(event) {  
+                        event.preventDefault();  
+                        html2canvas(document.getElementById("san"),{
+                        	useCORS:true,
+                        	width:window.screen.availWidth,
+                        	height:window.screen.availHeight,
+                        	windowWidth:document.body.scrollWidth,
+                        	windowHeight:document.body.scrollHeight,
+                        	x:0,
+                        	y:window.pageYOffset
+                        }).then(function(canvas) {
+                            var dataUrl = canvas.toDataURL();
+                            var newImg = document.createElement("img");
+                            newImg.src =  dataUrl;
+                            document.getElementById("san").appendChild(newImg);
+//                          console.log(dataUrl)
+          
+//        $("#san img").attr("crossOrigin","anonymous")
+                                     downloadIamge()
+                            
+                            function downloadIamge(name) {
+    // 通过选择器获取img元素，
+    var img = document.getElementsByTagName("img")[0];
+    // 将图片的src属性作为URL地址
+    var url = img.src
+    var a = document.createElement('a')
+    var event = new MouseEvent('click')
+    
+    a.download = name || '下载图片名称'
+    a.href = url
+    
+    a.dispatchEvent(event)
+}
+                                                  
+                        });   
+                        
+  
+                        
+                } 
+		
+
+
 
  </script>
 </body>  
