@@ -12,21 +12,16 @@
     
     
     <script>
-    	          downloadIamge()
-                            
-                            function downloadIamge(name) {
-    // 通过选择器获取img元素，
-    var img = document.getElementsByTagName("img")[0];
-    // 将图片的src属性作为URL地址
-    var url = img.src
-    var a = document.createElement('a')
-    var event = new MouseEvent('click')
     
-    a.download = name || '下载图片名称'
-    a.href = url
-    
-    a.dispatchEvent(event)
-}
+    var imgSrc="img/BG1.png"
+    	     
+  		plus.gallery.save(imgSrc, function () {
+			plus.nativeUI.alert("保存图片到相册成功");
+		},function(){
+			plus.nativeUI.alert("保存失败");
+		});
+ 
+
     </script>
 </body>  
 </html>  
